@@ -69,7 +69,7 @@ void sendData(void)
     
     //operación para calcular el valor de la tensión de salida filtrada
     
-    peso =  InterpolarSensor(tension);
+    peso =  InterpolarSensor(tension); //cambiar InterpolarSensor para que reciba un float y devuelva un float en vez de unsigned ints
     
     char send_data[25];
     sprintf(send_data, "peso = %f", peso);
