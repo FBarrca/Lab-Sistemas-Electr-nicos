@@ -20,14 +20,4 @@ S = solve(eqn,E);
 E = round(S,2);
 fprintf("E = %.2d \n", E)
 
-%% Relación entre peso y deformación
-
-clear P def
-syms def P
-theta = e*(L-d)/2/I*P;
-
-eqn2 = def/L == theta/E;
-
-S = solve(eqn2,P)
-
-
+% theta = e*(L-d)/2/I*m
