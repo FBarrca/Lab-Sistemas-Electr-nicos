@@ -8,28 +8,25 @@
 #include "idle.h"
 #include "adc.h"   
 #include "interrupciones.h"
-#include "interpolar_sensor.h" //cambiar la gráfica
+#include "interpolar_sensor.h" 
 
-#define T_S 0.001f // 1ms
 void sendData(void);
-
 
 float buffer[2][2];
 
 int bandera = 0;
 
-
 int main(void)
 {
-
     char send_data[9];
     inicializarReloj();
     TRISB &= 0x0FFF;
     // Inicializaciones
     inicializarUART(115200);
-    inicializarTareaIdle(10);// 1 ms
-    inicializarADCPolling(0x20);
+    inicializarTareaIdle(2000);// 200 ms
+    inicializarADCPolling(1<<5);
     inicializarPWM((1 << 10), 1000); //1000 Hz y se puede hasta 6kHz
+    setDcPWM(1<<10, 5000);
     activarPWM((1 << 10)); //entrada puente pin RB10
 
 
@@ -49,6 +46,8 @@ int main(void)
         
         }
 
+        tareaIdle();
+
 
     }
         return 0;
@@ -56,9 +55,9 @@ int main(void)
 
 void sendData(void)
 {
-    float e1, e2, s1, s2;
-    float peso;
-    float tension;
+    unsigned int e1, e2, s1, s2;
+    unsigned int peso = 0;
+    unsigned int tension = 0;
     
     Disable();
     e1 = buffer [0][0];
@@ -67,30 +66,39 @@ void sendData(void)
     s2 = buffer [1][1];
     Enable();
     
-    //operación para calcular el valor de la tensión de salida filtrada
+    if (e1 == 0 && e2 == 1) {
+
+        tension = s1 - s2;
     
-    peso =  InterpolarSensor(tension); //cambiar InterpolarSensor para que reciba un float y devuelva un float en vez de unsigned ints
+    }
+    else {
+
+        tension = s2 - s1;
+ 
+    }
+    
+    peso =  InterpolarSensor(tension); 
     
     char send_data[25];
-    sprintf(send_data, "peso = %f", peso);
+    sprintf(send_data, "peso = %d", peso);
     putsUART(send_data);
 }
 
 
-void __attribute__((interrupt(no_auto_psv)))_MPWM1Interrupt{
+void __attribute__((interrupt(no_auto_psv))) _MPWM1Interrupt (void) {
     
     static int posbuffer = 0; //posición de guardado
     static int cont = 0;
-    float salida = 0;
-    float entrada = 0;
+    unsigned int salida = 0;
+    unsigned int entrada = 0;
     
     IFS3bits.PWM1IF = 0;
 
-    salida = leerADCPolling(5)*3.3/1023; //conectar salida a AN5
+    salida = leerADCPolling(5); //conectar salida a AN5
     
     if(P1TMRbits.PTDIR == 1){
         entrada = 0;
-    }else{ entrada = 3.3;}
+    }else{ entrada = 1;}
     
     cont++;
     
@@ -105,7 +113,6 @@ void __attribute__((interrupt(no_auto_psv)))_MPWM1Interrupt{
         bandera = 1;
         cont = 0;
     }
-    
-        
+      
 }
 
