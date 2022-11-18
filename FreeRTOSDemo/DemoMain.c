@@ -45,8 +45,8 @@ int main(void)
     xTaskCreate(ProcesaEnvSerie, "PrSer", TAM_PILA_SERIE, NULL,
                 PRIO_SERIE, NULL);
     
-    xTaskCreate(MostrarPos, "Led", TAM_PILA_SERIE, NULL,
-               PRIO_LEDS, NULL);
+//    xTaskCreate(MostrarPos, "Led", TAM_PILA_SERIE, NULL,
+//               PRIO_LEDS, NULL);
 
     vTaskStartScheduler(); // y por último se arranca el
                            // planificador.
