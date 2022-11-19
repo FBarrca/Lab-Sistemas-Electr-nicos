@@ -57,7 +57,7 @@ void EnviarOri(void *pvParameters)
       vTaskSuspendAll();
       //        sprintf(c_angulo, " %f;\n", copia_angulo);
       // snprintf(c_angulo, sizeof c_angulo, "Angulo: %.2f\n", copia_angulo);
-      snprintf(c_angulo, sizeof c_angulo, "Orien: %d\n", orientacion);
+      snprintf(c_angulo, sizeof c_angulo, "%d\n", orientacion);
       xTaskResumeAll();
 
       putsUART(c_angulo);

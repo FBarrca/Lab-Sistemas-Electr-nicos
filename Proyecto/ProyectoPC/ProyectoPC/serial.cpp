@@ -34,7 +34,7 @@ CSerial::CSerial()
 	GetCommState (m_h_Port, &PortDCB);
 
 	// Y cambia las opciones que interesan
-	PortDCB.BaudRate = CBR_38400;         // Current baud 
+	PortDCB.BaudRate = CBR_115200;//CBR_38400;         // Current baud 
 	PortDCB.fBinary = TRUE;               // Binary mode; no EOF check 
 	PortDCB.fParity = TRUE;               // Enable parity checking 
 	PortDCB.fOutxCtsFlow = FALSE;         // No CTS output flow control 
