@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "interpolar_sensor.h": "c"
+        "interpolar_sensor.h": "c",
+        "task.h": "c",
+        "semphr.h": "c"
     }
 }

@@ -35,8 +35,7 @@ int main(void)
 {
     InicializarReloj();
     InitAcel();
-    //InitOrientacion();
-    //InitLeds();
+    InitLeds();
     InitEnviar();
     
 
