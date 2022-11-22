@@ -32,7 +32,7 @@ int main(void)
     {
         if (port.PortRead(10, buffer, &resultado))
         { // buffferlength bufferpointern_Elem_read pointer
-            cout << (int)buffer[0] << endl;
+            //cout << (int)buffer[0] << endl;
             cout << buffer[0] << endl;
             switch ((int)buffer[0]-48 )
             {
