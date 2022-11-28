@@ -39,13 +39,13 @@ int main(void)
             case LANDSCAPE:
                 pantalla.setLandscape();
                 break;
-            case PORTRAIT:
+            case PORTRAIT_FLIPPED:
                 pantalla.setPortraitFlipped();
                 break;
             case LANDSCAPE_FLIPPED:
                 pantalla.setLandscapeFlipped();
                 break;
-            case PORTRAIT_FLIPPED:
+            case PORTRAIT:
                 pantalla.setPortrait();
                 break;
             default:

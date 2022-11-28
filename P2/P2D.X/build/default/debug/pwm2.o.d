@@ -1,5 +1,0 @@
-build/default/debug/pwm2.o: pwm2.c pwm2.h config.h
-
-pwm2.h:
-
-config.h:
