@@ -64,14 +64,14 @@ void LeerAcel(void *pvParameters)
         l_y = (lectura_y - 512.0) / 512.0 * 10;
         l_x = (lectura_x - 512.0) / 512.0 * 10;
 
-        if ((l_x * l_x + l_y * l_y) < 100) // si el módulo es muy grande es que hay aceleraciones externas (filtramos)
+        if ((l_x * l_x + l_y * l_y) < 100 ) // si el módulo es muy grande es que hay aceleraciones externas (filtramos)
         {
             
             angulo_calc = (atan2(-l_x, -l_y) * 180 / PI);
             angulo_act = angulo_calc - offset_angulo;
-            while (angulo_act < 0)
+            while (angulo_act =< 0)
                 angulo_act += 360;
-            while (angulo_act >= 360)
+            while (angulo_act > 360)
                 angulo_act -= 360;
 
             puls_act = PORTB & (1 << 2);
